@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at uart_packet.v(114): always construct contains both blocking and non-blocking assignments File: C:/Users/TimStarling/Desktop/CCIC/Robot_arm/rtl/uart_packet.v Line: 114
+Info (10281): Verilog HDL Declaration information at key_detect.v(38): object "TIM_COUNT" differs only in case from object "tim_count" in the same scope File: C:/Users/TimStarling/Desktop/CCIC/Robot_arm/rtl/key_detect.v Line: 38

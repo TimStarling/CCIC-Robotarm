@@ -1,0 +1,16 @@
+Fitter Status : Successful - Tue Aug  5 14:39:43 2025
+Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+Revision Name : Robot_arm
+Top-level Entity Name : data_send_top
+Family : Cyclone IV E
+Device : EP4CE6F17C8
+Timing Models : Final
+Total logic elements : 1,709 / 6,272 ( 27 % )
+    Total combinational functions : 1,353 / 6,272 ( 22 % )
+    Dedicated logic registers : 1,011 / 6,272 ( 16 % )
+Total registers : 1011
+Total pins : 10 / 180 ( 6 % )
+Total virtual pins : 0
+Total memory bits : 122,880 / 276,480 ( 44 % )
+Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
+Total PLLs : 0 / 2 ( 0 % )

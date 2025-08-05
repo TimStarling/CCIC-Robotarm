@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Aug  5 14:39:35 2025
+Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+Revision Name : Robot_arm
+Top-level Entity Name : data_send_top
+Family : Cyclone IV E
+Total logic elements : 1,892
+    Total combinational functions : 1,353
+    Dedicated logic registers : 1,011
+Total registers : 1011
+Total pins : 10
+Total virtual pins : 0
+Total memory bits : 122,880
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
