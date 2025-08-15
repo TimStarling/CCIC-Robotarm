@@ -1,4 +1,6 @@
 % 定义 MIF 文件的参数
+clc
+clear
 width = 36;           % 数据宽度（20 位无符号数）
 depth = 1024;         % 深度
 address_radix = 'UNS'; % 地址基数
@@ -6,25 +8,26 @@ data_radix = 'UNS';    % 数据基数
 % 地址 17位 pwm值 数据 分为三段 前12位 后12位 前12位
 % 生成 MIF 文件内容
 mif_content = sprintf('WIDTH=%d;\nDEPTH=%d;\nADDRESS_RADIX=%s;\nDATA_RADIX=%s;\nCONTENT BEGIN\n', width, depth, address_radix, data_radix);
-
+ 
 % 机械参数设置 (mm)
-L0 = 80;
-L1 = 115;
+L0 = 95;
+L1 = 104;
 L2 = 193;
-L3 = 150;
+L3 = 159;
 
 for i = 0:1
     flag = i; %0~1 1位
+    Z = 0;
     if(flag==0)
-        Z = 1 * 10; %0~128 7位 2位 5~7位
+        Z = 0 * 10; %0~128 7位 2位 5~7位
     else
-        Z = 6 * 10;
+        Z = 3 * 10;
     end
     for j = 85 : 288
-        L = j; %85~288 9位
+        L = j - 12; %85~288 9位
         % 计算伸展长度
         L5 = sqrt(L^2 + (L3 + Z - L0)^2);
-
+        
         % 计算关节角度
         cos_theta3 = (L1^2 + L2^2 - L5^2) / (2*L1*L2);
         theta3 = rad2deg(acos(cos_theta3));
@@ -47,12 +50,12 @@ for i = 0:1
         elseif(L < 185)
             pwm_out3 = round((J3/360)*4096 + 2048 + 75);
         else
-            pwm_out3 = round((J3/360)*4096 + 2048 + 85); % - round(120 * L / 288) ;
+            pwm_out3 = round((J3/360)*4096 + 2048 + 85);
         end
-
+        
         % 组装存储值
         store_value = bitshift(uint64(pwm_out1), 24);
-        store_value = bitor(store_value, bitshift(uint64(pwm_out2), 12));
+        store_value = bitor(store_value, bitshift(uint64(pwm_out2), 12)); % 使用 uint64 类型
         store_value = bitor(store_value, uint64(pwm_out3));
         store_value_bin = dec2bin(store_value, 36);
 
