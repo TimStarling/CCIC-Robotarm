@@ -1,0 +1,562 @@
+module warehouse (
+    input sys_clk,
+    input sys_rst,
+    input [3:0] color,// 0-红 2-蓝 1-黄 3-黑
+    input [3:0] shape,// 3-三角 1-圆 2-六边 0-正方
+    input en_flag,
+
+    output reg [11:0] angle0,
+    output reg [11:0] angle1,
+    output reg [11:0] angle2,
+    output reg [11:0] angle3,
+    output reg ready_flag
+);
+
+reg [11:0] ware_house1 [0:6];//0-angle0 1-angle1 2-angle2 3-angle3 4-color_in 5-shape_in 6- 1为已有物品 0为空闲
+initial begin //一号
+    ware_house1[0] = 12'd3385;
+    ware_house1[1] = 12'd2460;
+    ware_house1[2] = 12'd2700;
+    ware_house1[3] = 12'd2905;
+    ware_house1[4] = 12'd0;
+    ware_house1[5] = 12'd0;
+    ware_house1[6] = 12'd0;
+end
+reg [11:0] ware_house2 [0:6];
+initial begin //二号
+    ware_house2[0] = 12'd3435;
+    ware_house2[1] = 12'd2180;
+    ware_house2[2] = 12'd3070;
+    ware_house2[3] = 12'd2820;
+    ware_house2[4] = 12'd3;
+    ware_house2[5] = 12'd1;
+    ware_house2[6] = 12'd0;
+end
+reg [11:0] ware_house3 [0:6];
+initial begin //三号
+    ware_house3[0] = 12'd3515;
+    ware_house3[1] = 12'd1950;
+    ware_house3[2] = 12'd3320;
+    ware_house3[3] = 12'd2825;
+    ware_house3[4] = 12'd4;
+    ware_house3[5] = 12'd4;
+    ware_house3[6] = 12'd0;
+end
+reg [11:0] ware_house4 [0:6];
+initial begin //四号
+    ware_house4[0] = 12'd3640;
+    ware_house4[1] = 12'd1750;
+    ware_house4[2] = 12'd3480;
+    ware_house4[3] = 12'd2895;
+    ware_house4[4] = 12'd4;
+    ware_house4[5] = 12'd4;
+    ware_house4[6] = 12'd0;
+end
+reg [11:0] ware_house5 [0:6];
+initial begin //五号
+    ware_house5[0] = 12'd3275;
+    ware_house5[1] = 12'd2320;
+    ware_house5[2] = 12'd2880;
+    ware_house5[3] = 12'd2855;
+    ware_house5[4] = 12'd3;
+    ware_house5[5] = 12'd3;
+    ware_house5[6] = 12'd0;
+end
+reg [11:0] ware_house6 [0:6];
+initial begin //六号
+    ware_house6[0] = 12'd3310;
+    ware_house6[1] = 12'd2080;
+    ware_house6[2] = 12'd3150;
+    ware_house6[3] = 12'd2870;
+    ware_house6[4] = 12'd4;
+    ware_house6[5] = 12'd4;
+    ware_house6[6] = 12'd0;
+end
+reg [11:0] ware_house7 [0:6];
+initial begin //七号
+    ware_house7[0] = 12'd3380;
+    ware_house7[1] = 12'd1820;
+    ware_house7[2] = 12'd3400;
+    ware_house7[3] = 12'd2900;
+    ware_house7[4] = 12'd1;
+    ware_house7[5] = 12'd3;
+    ware_house7[6] = 12'd0;
+end
+reg [11:0] ware_house8 [0:6];
+initial begin //八号
+    ware_house8[0] = 12'd3480;
+    ware_house8[1] = 12'd1500;
+    ware_house8[2] = 12'd3660;
+    ware_house8[3] = 12'd2965;
+    ware_house8[4] = 12'd2;
+    ware_house8[5] = 12'd2;
+    ware_house8[6] = 12'd0;
+end
+reg [11:0] ware_house9 [0:6];
+initial begin //九号
+    ware_house9[0] = 12'd3150;
+    ware_house9[1] = 12'd2280;
+    ware_house9[2] = 12'd2920;
+    ware_house9[3] = 12'd2870;
+    ware_house9[4] = 12'd4;
+    ware_house9[5] = 12'd4;
+    ware_house9[6] = 12'd0;
+end
+reg [11:0] ware_house10 [0:6];
+initial begin //十号
+    ware_house10[0] = 12'd3170;
+    ware_house10[1] = 12'd2080;
+    ware_house10[2] = 12'd3220;
+    ware_house10[3] = 12'd2820;
+    ware_house10[4] = 12'd1;
+    ware_house10[5] = 12'd2;
+    ware_house10[6] = 12'd0;
+end
+reg [11:0] ware_house11 [0:6];
+initial begin //十一号
+    ware_house11[0] = 12'd3195;
+    ware_house11[1] = 12'd1700;
+    ware_house11[2] = 12'd3470;
+    ware_house11[3] = 12'd2945;
+    ware_house11[4] = 12'd3;
+    ware_house11[5] = 12'd3;
+    ware_house11[6] = 12'd0;
+end
+reg [11:0] ware_house12 [0:6];
+initial begin //十二号
+    ware_house12[0] = 12'd3245;
+    ware_house12[1] = 12'd1330;
+    ware_house12[2] = 12'd3740;
+    ware_house12[3] = 12'd3065;
+    ware_house12[4] = 12'd4;
+    ware_house12[5] = 12'd4;
+    ware_house12[6] = 12'd0;
+end
+reg [11:0] ware_house13 [0:6];
+initial begin //十三号
+    ware_house13[0] = 12'd2985;
+    ware_house13[1] = 12'd2290;
+    ware_house13[2] = 12'd2920;
+    ware_house13[3] = 12'd2865;
+    ware_house13[4] = 12'd3;
+    ware_house13[5] = 12'd2;
+    ware_house13[6] = 12'd0;
+end
+reg [11:0] ware_house14 [0:6];
+initial begin //十四号
+    ware_house14[0] = 12'd2970;
+    ware_house14[1] = 12'd2070;
+    ware_house14[2] = 12'd3200;
+    ware_house14[3] = 12'd2850;
+    ware_house14[4] = 12'd0;
+    ware_house14[5] = 12'd1;
+    ware_house14[6] = 12'd0;
+end
+reg [11:0] ware_house15 [0:6];
+initial begin //十五号
+    ware_house15[0] = 12'd2955;
+    ware_house15[1] = 12'd1780;
+    ware_house15[2] = 12'd3470;
+    ware_house15[3] = 12'd2900;
+    ware_house15[4] = 12'd0;
+    ware_house15[5] = 12'd3;
+    ware_house15[6] = 12'd0;
+end
+reg [11:0] ware_house16 [0:6];
+initial begin //十六号
+    ware_house16[0] = 12'd2920;
+    ware_house16[1] = 12'd1400;
+    ware_house16[2] = 12'd3740;
+    ware_house16[3] = 12'd3020;
+    ware_house16[4] = 12'd4;
+    ware_house16[5] = 12'd4;
+    ware_house16[6] = 12'd0;
+end
+reg [11:0] ware_house17 [0:6];
+initial begin //十七号
+    ware_house17[0] = 12'd2860;
+    ware_house17[1] = 12'd2360;
+    ware_house17[2] = 12'd2850;
+    ware_house17[3] = 12'd2860;
+    ware_house17[4] = 12'd1;
+    ware_house17[5] = 12'd1;
+    ware_house17[6] = 12'd0;
+end
+reg [11:0] ware_house18 [0:6];
+initial begin //十八号
+    ware_house18[0] = 12'd2825;
+    ware_house18[1] = 12'd2100;
+    ware_house18[2] = 12'd3160;
+    ware_house18[3] = 12'd2840;
+    ware_house18[4] = 12'd4;
+    ware_house18[5] = 12'd4;
+    ware_house18[6] = 12'd0;
+end
+reg [11:0] ware_house19 [0:6];
+initial begin //十九号
+    ware_house19[0] = 12'd2770;
+    ware_house19[1] = 12'd1850;
+    ware_house19[2] = 12'd3450;
+    ware_house19[3] = 12'd2810;
+    ware_house19[4] = 12'd3;
+    ware_house19[5] = 12'd0;
+    ware_house19[6] = 12'd0;
+end
+reg [11:0] ware_house20 [0:6];
+initial begin //二十号
+    ware_house20[0] = 12'd2675;
+    ware_house20[1] = 12'd1480;
+    ware_house20[2] = 12'd3670;
+    ware_house20[3] = 12'd2955;
+    ware_house20[4] = 12'd1;
+    ware_house20[5] = 12'd0;
+    ware_house20[6] = 12'd0;
+end
+reg [11:0] ware_house21 [0:6];
+initial begin //二十一号
+    ware_house21[0] = 12'd2755;
+    ware_house21[1] = 12'd2410;
+    ware_house21[2] = 12'd2770;
+    ware_house21[3] = 12'd2855;
+    ware_house21[4] = 12'd4;
+    ware_house21[5] = 12'd4;
+    ware_house21[6] = 12'd0;
+end
+reg [11:0] ware_house22 [0:6];
+initial begin //二十二号
+    ware_house22[0] = 12'd2690;
+    ware_house22[1] = 12'd2260;
+    ware_house22[2] = 12'd2950;
+    ware_house22[3] = 12'd2910;
+    ware_house22[4] = 12'd2;
+    ware_house22[5] = 12'd0;
+    ware_house22[6] = 12'd0;
+end
+reg [11:0] ware_house23 [0:6];
+initial begin //二十三号
+    ware_house23[0] = 12'd2620;
+    ware_house23[1] = 12'd1960;
+    ware_house23[2] = 12'd3310;
+    ware_house23[3] = 12'd2805;
+    ware_house23[4] = 12'd4;
+    ware_house23[5] = 12'd4;
+    ware_house23[6] = 12'd0;
+end
+reg [11:0] ware_house24 [0:6];
+initial begin //二十四号
+    ware_house24[0] = 12'd2510;
+    ware_house24[1] = 12'd1670;
+    ware_house24[2] = 12'd3540;
+    ware_house24[3] = 12'd2840;
+    ware_house24[4] = 12'd2;
+    ware_house24[5] = 12'd1;
+    ware_house24[6] = 12'd0;
+end
+
+reg [3:0]color_in;
+reg [3:0]shape_in;
+reg [5:0] state = 'd0;
+always @(posedge sys_clk or posedge sys_rst) begin
+    if (sys_rst) begin
+        ready_flag <= 1'b0;
+    end else begin
+        case(state)
+            'd0: begin
+                ready_flag <= 1'b0;
+                angle0 <= 'd2048;
+                angle1 <= 'd1850;
+                angle2 <= 'd3227;
+                angle3 <= 'd3000;
+                if (en_flag) begin
+                    color_in <= color;
+                    shape_in <= shape;
+                    state <= 'd1;
+                end
+                else state <= 'd0;
+            end
+            'd1: begin
+                if(ware_house1[4] == color_in && ware_house1[5] == shape_in && ware_house1[6] == 0) begin
+                    angle0 <= ware_house1[0];
+                    angle1 <= ware_house1[1];
+                    angle2 <= ware_house1[2];
+                    angle3 <= ware_house1[3];
+                    ware_house1[6] <= 1;
+                    state <= 'd26;
+                end
+                else state <= state + 'd1;
+            end
+            'd2: begin
+                if(ware_house2[4] == color_in && ware_house2[5] == shape_in && ware_house2[6] == 0) begin
+                    angle0 <= ware_house2[0];
+                    angle1 <= ware_house2[1];
+                    angle2 <= ware_house2[2];
+                    angle3 <= ware_house2[3];
+                    ware_house2[6] <= 1;
+                    state <= 'd26;
+                end
+                else state <= state + 'd1;
+            end
+            'd3:begin
+                 if(ware_house3[4] == color_in && ware_house3[5] == shape_in && ware_house3[6] == 0) begin
+                    angle0 <= ware_house3[0];
+                    angle1 <= ware_house3[1];
+                    angle2 <= ware_house3[2];
+                    angle3 <= ware_house3[3];
+                    ware_house3[6] <= 1;
+                    state <= 'd26;
+                end
+                else state <= state + 'd1;
+            end
+            'd4:begin
+                 if(ware_house4[4] == color_in && ware_house4[5] == shape_in && ware_house4[6] == 0) begin
+                    angle0 <= ware_house4[0];
+                    angle1 <= ware_house4[1];
+                    angle2 <= ware_house4[2];
+                    angle3 <= ware_house4[3];
+                    ware_house4[6] <= 1;
+                    state <= 'd26;
+                end
+                else state <= state + 'd1;
+            end
+            'd5:begin
+                 if(ware_house5[4] == color_in && ware_house5[5] == shape_in && ware_house5[6] == 0) begin
+                    angle0 <= ware_house5[0];
+                    angle1 <= ware_house5[1];
+                    angle2 <= ware_house5[2];
+                    angle3 <= ware_house5[3];
+                    ware_house5[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd6:begin
+                 if(ware_house6[4] == color_in && ware_house6[5] == shape_in && ware_house6[6] == 0) begin
+                    angle0 <= ware_house6[0];
+                    angle1 <= ware_house6[1];
+                    angle2 <= ware_house6[2];
+                    angle3 <= ware_house6[3];
+                    ware_house6[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd7:begin
+                 if(ware_house7[4] == color_in && ware_house7[5] == shape_in && ware_house7[6] == 0) begin
+                    angle0 <= ware_house7[0];
+                    angle1 <= ware_house7[1];
+                    angle2 <= ware_house7[2];
+                    angle3 <= ware_house7[3];
+                    ware_house7[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd8:begin
+                 if(ware_house8[4] == color_in && ware_house8[5] == shape_in && ware_house8[6] == 0) begin
+                    angle0 <= ware_house8[0];
+                    angle1 <= ware_house8[1];
+                    angle2 <= ware_house8[2];
+                    angle3 <= ware_house8[3];
+                    ware_house8[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd9:begin
+                 if(ware_house9[4] == color_in && ware_house9[5] == shape_in && ware_house9[6] == 0) begin
+                    angle0 <= ware_house9[0];
+                    angle1 <= ware_house9[1];
+                    angle2 <= ware_house9[2];
+                    angle3 <= ware_house9[3];
+                    ware_house9[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd10:begin
+                 if(ware_house10[4] == color_in && ware_house10[5] == shape_in && ware_house10[6] == 0) begin
+                    angle0 <= ware_house10[0];
+                    angle1 <= ware_house10[1];
+                    angle2 <= ware_house10[2];
+                    angle3 <= ware_house10[3];
+                    ware_house10[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd11:begin
+                 if(ware_house11[4] == color_in && ware_house11[5] == shape_in && ware_house11[6] == 0) begin
+                    angle0 <= ware_house11[0];
+                    angle1 <= ware_house11[1];
+                    angle2 <= ware_house11[2];
+                    angle3 <= ware_house11[3];
+                    ware_house11[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd12:begin
+                 if(ware_house12[4] == color_in && ware_house12[5] == shape_in && ware_house12[6] == 0) begin
+                    angle0 <= ware_house12[0];
+                    angle1 <= ware_house12[1];
+                    angle2 <= ware_house12[2];
+                    angle3 <= ware_house12[3];
+                    ware_house12[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd13:begin
+                 if(ware_house13[4] == color_in && ware_house13[5] == shape_in && ware_house13[6] == 0) begin
+                    angle0 <= ware_house13[0];
+                    angle1 <= ware_house13[1];
+                    angle2 <= ware_house13[2];
+                    angle3 <= ware_house13[3];
+                    ware_house13[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd14:begin
+                 if(ware_house14[4] == color_in && ware_house14[5] == shape_in && ware_house14[6] == 0) begin
+                    angle0 <= ware_house14[0];
+                    angle1 <= ware_house14[1];
+                    angle2 <= ware_house14[2];
+                    angle3 <= ware_house14[3];
+                    ware_house14[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd15:begin
+                 if(ware_house15[4] == color_in && ware_house15[5] == shape_in && ware_house15[6] == 0) begin
+                    angle0 <= ware_house15[0];
+                    angle1 <= ware_house15[1];
+                    angle2 <= ware_house15[2];
+                    angle3 <= ware_house15[3];
+                    ware_house15[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd16:begin
+                 if(ware_house16[4] == color_in && ware_house16[5] == shape_in && ware_house16[6] == 0) begin
+                    angle0 <= ware_house16[0];
+                    angle1 <= ware_house16[1];
+                    angle2 <= ware_house16[2];
+                    angle3 <= ware_house16[3];
+                    ware_house16[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd17:begin
+                 if(ware_house17[4] == color_in && ware_house17[5] == shape_in && ware_house17[6] == 0) begin
+                    angle0 <= ware_house17[0];
+                    angle1 <= ware_house17[1];
+                    angle2 <= ware_house17[2];
+                    angle3 <= ware_house17[3];
+                    ware_house17[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd18:begin
+                 if(ware_house18[4] == color_in && ware_house18[5] == shape_in && ware_house18[6] == 0) begin
+                    angle0 <= ware_house18[0];
+                    angle1 <= ware_house18[1];
+                    angle2 <= ware_house18[2];
+                    angle3 <= ware_house18[3];
+                    ware_house18[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd19:begin
+                 if(ware_house19[4] == color_in && ware_house19[5] == shape_in && ware_house19[6] == 0) begin
+                    angle0 <= ware_house19[0];
+                    angle1 <= ware_house19[1];
+                    angle2 <= ware_house19[2];
+                    angle3 <= ware_house19[3];
+                    ware_house19[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd20:begin
+                 if(ware_house20[4] == color_in && ware_house20[5] == shape_in && ware_house20[6] == 0) begin
+                    angle0 <= ware_house20[0];
+                    angle1 <= ware_house20[1];
+                    angle2 <= ware_house20[2];
+                    angle3 <= ware_house20[3];
+                    ware_house20[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd21:begin
+                 if(ware_house21[4] == color_in && ware_house21[5] == shape_in && ware_house21[6] == 0) begin
+                    angle0 <= ware_house21[0];
+                    angle1 <= ware_house21[1];
+                    angle2 <= ware_house21[2];
+                    angle3 <= ware_house21[3];
+                    ware_house21[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd22:begin
+                 if(ware_house22[4] == color_in && ware_house22[5] == shape_in && ware_house22[6] == 0) begin
+                    angle0 <= ware_house22[0];
+                    angle1 <= ware_house22[1];
+                    angle2 <= ware_house22[2];
+                    angle3 <= ware_house22[3];
+                    ware_house22[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd23:begin
+                 if(ware_house23[4] == color_in && ware_house23[5] == shape_in && ware_house23[6] == 0) begin
+                    angle0 <= ware_house23[0];
+                    angle1 <= ware_house23[1];
+                    angle2 <= ware_house23[2];
+                    angle3 <= ware_house23[3];
+                    ware_house23[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd24:begin
+                 if(ware_house24[4] == color_in && ware_house24[5] == shape_in && ware_house24[6] == 0) begin
+                    angle0 <= ware_house24[0];
+                    angle1 <= ware_house24[1];
+                    angle2 <= ware_house24[2];
+                    angle3 <= ware_house24[3];
+                    ware_house24[6] <= 1;
+                    state <= 'd26;
+                 end
+                 else state <= state + 'd1;
+            end
+            'd25:begin
+                state <= state + 'd1;
+            end
+            'd26: begin
+                ready_flag <= 1'b1;
+                state <= state + 'd1;
+            end
+            'd27: begin
+                state <= state + 'd1;
+            end
+            'd28: begin
+                ready_flag <= 1'b0;
+                state <= state + 'd1;
+            end
+            'd29: begin
+                state <= 'd0;
+            end
+            default:state <= 'd0;
+            endcase 
+    end  
+end
+endmodule
