@@ -1,3 +1,9 @@
+<div align="right">
+
+[中文](README.md) | [English](README_EN.md)
+
+</div>
+
 # CCIC-Robotarm
 基于海云捷讯的机械臂控制系统-2025年集成电路创新大赛（集创赛）FPGA应用赛道作品（机械臂控制部分）
 本项目分为两个工程，视觉识别部分参见另一个仓库（视觉识别部分）
